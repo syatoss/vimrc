@@ -50,12 +50,14 @@ Plug 'AndrewRadev/tagalong.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'joshdick/onedark.vim'
 
 
 call plug#end()
 
 
-colorscheme gruvbox
+colorscheme onedark
 hi Normal guibg=NONE ctermbg=NONE
 highlight LineNr ctermfg=NONE ctermbg=NONE
 hi Pmenu ctermbg=242 ctermfg=255
