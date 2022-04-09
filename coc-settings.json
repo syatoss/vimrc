@@ -5,6 +5,10 @@
     "json",
     "typescript",
     "javascript",
-    "html"
+    "html",
+    "jsx",
+    "tsx",
+    "typescriptreact",
+    "lua"
   ]
 }

@@ -50,14 +50,17 @@ Plug 'AndrewRadev/tagalong.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'joshdick/onedark.vim'
+Plug 'andrejlevkovitch/vim-lua-format'
+"Plug 'github/copilot.vim'
+"" If you are using Vim-Plug
+Plug 'marko-cerovac/material.nvim'
 
 
 call plug#end()
 
+let g:gruvbox_termcolors=16
 
-colorscheme onedark
+colorscheme gruvbox
 hi Normal guibg=NONE ctermbg=NONE
 highlight LineNr ctermfg=NONE ctermbg=NONE
 hi Pmenu ctermbg=242 ctermfg=255
@@ -76,6 +79,8 @@ let g:ctrlp_use_caching=0
 let g:rg_command = 'rg --vimgrep -S'
 let g:coc_global_extensions = [ 'coc-tsserver', 'coc-clangd', 'coc-angular', 'coc-html', 'coc-css', 'coc-json']
 let g:AutoPairs = {'<': '>', '`': '`', '"': '"', '{': '}', '(': ')', '[': ']', '''': '''' }
+"Vim-Script:
+let g:material_style = "deep ocean"
 
 
 
@@ -123,6 +128,14 @@ nnoremap  <leader>ggc :G commit <CR>
 nnoremap  <leader>ggp :G push <CR>
 nnoremap  <leader>ggl :diffget //3 <CR>
 nnoremap  <leader>ggr :diffget //2 <CR>
+imap <silent><script><expr> <M-=> copilot#Accept("\<CR>")
+" let g:copilot_no_tab_map = v:true
+" imap <M-0> <Plug>(copilot-next)
+" imap <M-9> <Plug>(copilot-prevoius)
+" nnoremap <leader>cpx :Copilot disable<CR>
+" nnoremap <leader>cps :Copilot enable<CR>
+
+
 
 lua <<EOF
 require 'nvim-treesitter.install'.compilers = { "cl" }
@@ -201,3 +214,9 @@ augroup END
 
 " autocmd FileType json setlocal commentstring=//%s
 autocmd FileType jsonc setlocal commentstring=//%s
+autocmd FileType lua nnoremap <buffer> <c-k> :call LuaFormat()<cr>
+autocmd BufWrite *.lua call LuaFormat()
+
+" turn off copilot by default
+" autocmd VimEnter * Copilot_disable
+command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
