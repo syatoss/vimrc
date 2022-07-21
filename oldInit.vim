@@ -1,4 +1,4 @@
-syntax on
+" syntax on
 
 
 "nerdtree setters:
@@ -26,9 +26,12 @@ set t_Co=256
 set statusline+=%*
 set nohlsearch
 set nocompatible
+set termguicolors
 set ic
 set colorcolumn=300
 set diffopt+=vertical
+set guifont=font:hsize
+set guifont=FantasqueSansMono\ NF:h20
 
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
@@ -54,13 +57,24 @@ Plug 'andrejlevkovitch/vim-lua-format'
 "Plug 'github/copilot.vim'
 "" If you are using Vim-Plug
 Plug 'marko-cerovac/material.nvim'
-
+Plug 'puremourning/vimspector'
+Plug 'rhysd/vim-clang-format'
+Plug 'sainnhe/sonokai'
 
 call plug#end()
 
-let g:gruvbox_termcolors=16
 
+if has('termguicolors')
+  set termguicolors
+endif
+let g:sonokai_style = 'andromeda'
+let g:sonokai_better_performance = 1
 colorscheme gruvbox
+
+let g:gruvbox_termcolors=16
+let g:gruvbox_guicolors=16
+
+" colorscheme gruvbox
 hi Normal guibg=NONE ctermbg=NONE
 highlight LineNr ctermfg=NONE ctermbg=NONE
 hi Pmenu ctermbg=242 ctermfg=255
@@ -81,6 +95,17 @@ let g:coc_global_extensions = [ 'coc-tsserver', 'coc-clangd', 'coc-angular', 'co
 let g:AutoPairs = {'<': '>', '`': '`', '"': '"', '{': '}', '(': ')', '[': ']', '''': '''' }
 "Vim-Script:
 let g:material_style = "deep ocean"
+let g:vimspector_base_dir = expand('$HOME/.conifg/vimspector-confog')
+
+" formatting C code
+ let g:clang_format#style_options = {
+            \ "AccessModifierOffset" : -4,
+            \ "AllowShortIfStatementsOnASingleLine" : "true",
+            \ "AlwaysBreakTemplateDeclarations" : "true",
+            \ "Standard" : "C++11"}
+ autocmd FileType c ClangFormatAutoEnable
+
+
 
 
 
@@ -128,6 +153,16 @@ nnoremap  <leader>ggc :G commit <CR>
 nnoremap  <leader>ggp :G push <CR>
 nnoremap  <leader>ggl :diffget //3 <CR>
 nnoremap  <leader>ggr :diffget //2 <CR>
+nnoremap  <leader>db :call vimspector#ToggleBreakpoint() <CR>
+nnoremap  <leader>do :call vimspector#StepOver() <CR>
+nnoremap  <leader>di :call vimspector#StepInto() <CR>
+nnoremap  <leader>du :call vimspector#StepOut() <CR>
+nnoremap  <leader>dr :call vimspector#Restart() <CR>
+nnoremap  <leader>ds :call vimspector#Stop() <CR>
+nnoremap  <leader>dd :call vimspector#Continue() <CR>
+nnoremap  <leader>dx :call vimspector#Reset() <CR>
+" nnoremap  <leader>de :call vimspector#BalloonEval() <CR>
+nnoremap  <leader>de <Plug>VimspectorBalloonEval
 imap <silent><script><expr> <M-=> copilot#Accept("\<CR>")
 " let g:copilot_no_tab_map = v:true
 " imap <M-0> <Plug>(copilot-next)
@@ -138,7 +173,7 @@ imap <silent><script><expr> <M-=> copilot#Accept("\<CR>")
 
 
 lua <<EOF
-require 'nvim-treesitter.install'.compilers = { "cl" }
+require 'nvim-treesitter.install'.compilers = { "gcc" }
 EOF
 lua <<EOF
 require'nvim-treesitter.configs'.setup { highlight = { enable = true} }
@@ -210,7 +245,6 @@ augroup end
 augroup JsonToJsonc
     autocmd! FileType json set filetype=jsonc
 augroup END
-
 
 " autocmd FileType json setlocal commentstring=//%s
 autocmd FileType jsonc setlocal commentstring=//%s
