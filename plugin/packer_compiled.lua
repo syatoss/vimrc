@@ -99,6 +99,11 @@ _G.packer_plugins = {
     path = "/home/stas/.local/share/nvim/site/pack/packer/start/gruvbox",
     url = "https://github.com/morhetz/gruvbox"
   },
+  harpoon = {
+    loaded = true,
+    path = "/home/stas/.local/share/nvim/site/pack/packer/start/harpoon",
+    url = "https://github.com/ThePrimeagen/harpoon"
+  },
   nerdtree = {
     loaded = true,
     path = "/home/stas/.local/share/nvim/site/pack/packer/start/nerdtree",
