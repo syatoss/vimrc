@@ -6,7 +6,7 @@ local options = {
   errorbells = false,
   tabstop = 4,
   softtabstop = 4,
-  shiftwidth = 2,
+  shiftwidth = 4,
   cursorline = true,
   expandtab = true,
   smartindent = true,
@@ -18,7 +18,7 @@ local options = {
   scrolloff = 10,
   relativenumber = true,
   rnu = true,
-  undodir = "~/.vim/undodir",
+  undodir = "/home/stas/.vim/undodir",
   undofile = true,
   incsearch = true,
   --t_Co=256,
@@ -28,6 +28,10 @@ local options = {
   --colorcolumn=300,
   diffopt = "vertical",
   termguicolors = true,
+  updatetime = 250,
+  timeout = true,
+  timeoutlen = 300,
+  guifont = 'FantasqueSansMono Nerd Font:h22'
 }
 
 for key, value in pairs(options) do
