@@ -1,5 +1,5 @@
 -- Configuraion of coc.nvim
-require('coc')
+-- require('coc')
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`

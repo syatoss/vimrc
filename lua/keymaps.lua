@@ -13,7 +13,8 @@ end
 vim.g.mapleader = ' '
 
 -- file operations
-nkeymap('<leader>w', ':w!<CR>')
+nkeymap('ge', '$')
+nkeymap('<leader>s', ':w!<CR>') -- doesnt work (error on save from lsp)
 nkeymap('<leader>q', ':q!<CR>')
 
 -- window nvigation
@@ -23,7 +24,7 @@ nkeymap('<leader>k', ':wincmd k  <CR>')
 nkeymap('<leader>l', ':wincmd l  <CR>')
 
 -- file navigations
-nkeymap('<leader>pv', ':NERDTreeToggle <CR>')
+nkeymap('<leader>v', ':NERDTreeToggle <CR>')
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
@@ -35,11 +36,11 @@ vim.keymap.set('n', '<leader>/', function()
     previewer = false,
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
-vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
-vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
-vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
-vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
+vim.keymap.set('n', '<leader>fw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
+vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
+vim.keymap.set('n', '<leader>fd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
 -- commenting
 nkeymap('<C-\\>', ':Commentary <CR>')
@@ -55,9 +56,6 @@ nkeymap('<leader>8l', ':diffget //3 <CR>')
 nkeymap('<leader>8r', ':diffget //2 <CR>')
 
 -- custom movements
-nkeymap('dge', 'd$')
-nkeymap('ge', '$')
-vkeymap('ge', '$')
 vim.api.nvim_set_keymap('n','<C-S-v>','<cmd>put *<CR>',{normap = ture})
 vim.api.nvim_set_keymap('v','<C-S-v>','<cmd>put *<CR>',{normap = ture})
 vim.api.nvim_set_keymap('c','<c-v>','<c-r>+',{normap = ture})
@@ -75,11 +73,20 @@ nkeymap('<leader>dx', ':call vimspector#Reset() <CR>')
 
 -- harpoon (marked window navigation)
 nkeymap('<leader>wa', ':lua require("harpoon.mark").add_file()<cr>')
-nkeymap('<leader>wh', ':lua require("harpoon.ui").toggle_quick_menu()<cr>')
+nkeymap('<leader>ww', ':lua require("harpoon.ui").toggle_quick_menu()<cr>')
 nkeymap('<leader>w1', ':lua require("harpoon.ui").nav_file(1)<cr>')
 nkeymap('<leader>w2', ':lua require("harpoon.ui").nav_file(2)<cr>')
 nkeymap('<leader>w3', ':lua require("harpoon.ui").nav_file(3)<cr>')
 nkeymap('<leader>w4', ':lua require("harpoon.ui").nav_file(4)<cr>')
 nkeymap('<leader>w5', ':lua require("harpoon.ui").nav_file(5)<cr>')
-nkeymap('<leader>wn', ':lua require("harpoon.ui").nav_next()<cr>')
-nkeymap('<leader>wy', ':lua require("harpoon.ui").nav_prev()<cr>')
+nkeymap('<leader>wl', ':lua require("harpoon.ui").nav_next()<cr>')
+nkeymap('<leader>wh', ':lua require("harpoon.ui").nav_prev()<cr>')
+
+-- lsp
+nkeymap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+nkeymap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+nkeymap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+nkeymap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+nkeymap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+nkeymap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+
